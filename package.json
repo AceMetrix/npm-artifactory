@@ -1,9 +1,8 @@
 {
   "name": "npm-artifactory",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
   "scripts": {
-    "start": "node app.js"
+      "postinstall": "echo \"Make sure you create a config.json file to get started!\""
   },
   "dependencies": {
     "express": "3.3.4"
