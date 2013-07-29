@@ -1,10 +1,12 @@
 {
   "name": "npm-artifactory",
-  "version": "0.1.1",
+  "version": "0.1.2",
+  "author": "Duncan Wong <baduncaduncan@gmail.com>",
   "scripts": {
       "postinstall": "echo \"Make sure you create a config.json file to get started!\""
   },
   "dependencies": {
-    "express": "3.3.4"
+    "express": "3.3.4",
+    "request": "~2.25.0"
   }
 }
