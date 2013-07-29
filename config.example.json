@@ -1,0 +1,15 @@
+{
+    "artifactory": {
+        "protocol": "http",
+        "host": "artifactory.acemetrix.com",
+        "ext-repo": "ext-release-local",
+        "auth": {
+            "user": "someuser",
+            "pass": "somepass"
+        }
+    },
+    "npm": {
+        "protocol": "https",
+        "registry": "registry.npmjs.org"
+    }
+}
