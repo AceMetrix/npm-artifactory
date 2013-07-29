@@ -3,8 +3,6 @@ npm-artifactory
 
 A proxy server that uses [Artifactory](http://www.jfrog.com/home/v_artifactory_opensource_overview) as a data store for npm modules.  Useful to seamlessly integrate node into your java/maven-based workflows.
 
-In a Maven-esque style, npm-artifactory will proxy requests from npmjs.org if the module isn't found in artifactory.
-
 Installation
 ============
 
@@ -27,4 +25,4 @@ Create a `config.json` file before running (make sure the credentials to Artifac
 
 License
 =======
-Apache 2.0
+Apache License 2.0
