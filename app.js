@@ -21,10 +21,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-app.post('/_session', routes.session);
-app.get('/:packagename', routes.list);
-app.get('/:packagename/:version', routes.list);
-app.get('/:packagename/latest', routes.list);
+//app.post('/_session', routes.session);
+app.get('/:packagename', routes.get.meta);
+app.get('/:packagename/:version', routes.get.version);
+app.get('/:packagename/-/:filename', routes.get.artifact);
+//app.get('/:packagename/latest', routes.list);
 
 app.put('/:packagename', routes.publish.meta);
 app.put('/:packagename/-/:filename/-rev/:revision', routes.publish.artifact);
