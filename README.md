@@ -10,6 +10,10 @@ Installation
 
 Usage
 ======
+Run the server:
+
+    node app.js
+    
 Set your registry to point to the server (ie):
 
     npm config set registry http://localhost:3000/
