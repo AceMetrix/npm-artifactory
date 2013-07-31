@@ -1,6 +1,6 @@
 {
   "name": "npm-artifactory",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A proxy server that uses Artifactory to store npm modules for seamless integration with java/maven-based workflows",
   "keywords": [
     "npm",
@@ -11,6 +11,10 @@
     "proxy"
   ],
   "author": "Duncan Wong <baduncaduncan@gmail.com>",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/AceMetrix/npm-artifactory.git"
+  },
   "scripts": {
       "postinstall": "echo \"Make sure you create a config.json file to get started!\""
   },
