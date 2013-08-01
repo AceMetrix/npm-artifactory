@@ -2,12 +2,11 @@ var http = require('http');
 var util = require('../lib/util'); 
 var request = require('request');
 var crypto = require('crypto');
-var config = require('../config');
 
 // set the metadata file for package
 module.exports.meta = function(req, res){
     var artMetaPath = util.artMetaPath(req.params.packagename);
-    request.head({uri: artMetaPath, auth: config.artifactory.auth}, function(err, artRes, headers){
+    request.head({uri: artMetaPath}, function(err, artRes, headers){
         if (artRes.statusCode === 200){
             res.send(409, {error: 'conflict', reason: 'Document update conflict'});
         } else{
@@ -15,7 +14,7 @@ module.exports.meta = function(req, res){
             req.body['_rev'] = '1-' + crypto.createHash('md5').update(JSON.stringify(req.body)).digest('hex');
             req.body.time = {};
             req.body['_attachments'] = {};
-            request.put({uri: artMetaPath, json: req.body, auth: config.artifactory.auth}, function(err, artRes, body){
+            request.put({uri: artMetaPath, json: req.body}, function(err, artRes, body){
                 res.send(201, {ok: 'created new entry'});
             });
         }
@@ -45,7 +44,7 @@ module.exports.artifact = function(req, res){
                 file: req.params.filename
             });
             // upload the actual tarball
-            request.put({uri: artifactPath, body: buffer, auth: config.artifactory.auth}, function(err, artRes){
+            request.put({uri: artifactPath, body: buffer}, function(err, artRes){
                 body.time[version] = new Date().toISOString();
                 body['_attachments'][filename] = {
                     'content_type': req.get('content-type'),
@@ -56,7 +55,7 @@ module.exports.artifact = function(req, res){
                 }
 
                 // update the meta file
-                request.put({uri: util.artMetaPath(req.params.packagename), json: body, auth: config.artifactory.auth}, function(err, artRes, body){
+                request.put({uri: util.artMetaPath(req.params.packagename), json: body}, function(err, artRes, body){
                     res.send(201, {ok: true, id: req.params.packagename, rev: req.params.revision});
                 });
             });
@@ -73,7 +72,7 @@ module.exports.tag = function(req, res){
         body.versions[req.params.version] = req.body;
         body['dist-tags'].latest = req.params.version;
         var requests = 0;
-        request.put({uri: util.artMetaPath(req.params.packagename), json: body, auth: config.artifactory.auth}, function(err, artRes, body){
+        request.put({uri: util.artMetaPath(req.params.packagename), json: body}, function(err, artRes, body){
             requests++;
             if (requests === 2) res.send(201, {ok: 'added version'});
         });
@@ -84,7 +83,7 @@ module.exports.tag = function(req, res){
             version: req.params.version,
             file: 'metadata.json'
         });
-        request.put({uri: artifactPath, json: req.body, auth: config.artifactory.auth}, function(err, artRes, body){
+        request.put({uri: artifactPath, json: req.body}, function(err, artRes, body){
             requests++;
             if (requests === 2) res.send(201, {ok: 'added version'});
         });
