@@ -15,6 +15,7 @@ module.exports.meta = function(req, res){
             req.body.time = {};
             req.body['_attachments'] = {};
             request.put({uri: artMetaPath, json: req.body}, function(err, artRes, body){
+                console.log(err, artRes.statusCode, body, artMetaPath);
                 res.send(201, {ok: 'created new entry'});
             });
         }

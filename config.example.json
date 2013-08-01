@@ -1,15 +1,13 @@
 {
     "artifactory": {
         "protocol": "http",
-        "host": "artifactory.acemetrix.com",
-        "ext-repo": "ext-release-local",
-        "auth": {
-            "user": "someuser",
-            "pass": "somepass"
-        }
+        "hostname": "localhost",
+        "port": 8081,
+        "pathname": "/artifactory/ext-release-local",
+        "auth": "admin:password" 
     },
     "npm": {
         "protocol": "https",
-        "registry": "registry.npmjs.org"
+        "host": "registry.npmjs.org"
     }
 }
