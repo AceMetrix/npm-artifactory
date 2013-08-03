@@ -16,12 +16,13 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
 
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-app.post('/_session', routes.session);
+app.put('/-/user/org.couchdb.user:*', routes.user.add);
+app.get('/-/user/org.couchdb.user:*', routes.user.get);
+app.post('/_session', routes.user.login);
 
 app.get('/:packagename', routes.get.meta);
 app.get('/:packagename/:version', routes.get.version);
