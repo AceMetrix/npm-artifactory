@@ -25,7 +25,7 @@ Use npm as you would:
 
 Notes
 ======
-Configure `config.json` before running (make sure the credentials to Artifactory are correct).
+Configure `config.json` before running (make sure the credentials to Artifactory are correct).  The host and port is necessary to support tarball rewrites coming from the npmjs proxy (rewritten to the values specified here)
 
 License
 =======
