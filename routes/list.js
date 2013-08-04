@@ -9,7 +9,7 @@ module.exports.meta = function(req, res){
     var artPath = util.artMetaPath(req.params.packagename);
     request.head({uri: artPath, json: true}, function(err, metaRes){
         if (err || metaRes.statusCode === 404){
-            var proxyPath = 'http://localhost:3000';
+            var proxyPath = 'http://' + config.host + ':' + config.port;
             // rewrite references back to local repo 
             request.get(createOption(req), function(err, npmRes, body){
                 // todo: just do the get with accepts: text/plain

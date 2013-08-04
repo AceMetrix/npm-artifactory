@@ -6,11 +6,12 @@
 var express = require('express')
   , routes = require('./routes')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , config = require('./config');
 
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || config.port || 3000);
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -27,13 +28,10 @@ app.post('/_session', routes.user.login);
 app.get('/:packagename', routes.get.meta);
 app.get('/:packagename/:version', routes.get.version);
 app.get('/:packagename/-/:filename', routes.get.artifact);
-//app.get('/:packagename/latest', routes.list);
 
 app.put('/:packagename', routes.publish.meta);
 app.put('/:packagename/-/:filename/-rev/:revision', routes.publish.artifact);
 app.put('/:packagename/:version/-tag/latest', routes.publish.tag);
-//app.put('/:packagename/:version', routes.publish);
-//app.put('/:packagename/latest', routes.publish);
 
 
 
