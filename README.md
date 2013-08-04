@@ -25,7 +25,7 @@ Use npm as you would:
 
 Notes
 ======
-Create a `config.json` file before running (make sure the credentials to Artifactory are correct).  An example is provided in `config.example.json`.
+Configure `config.json` before running (make sure the credentials to Artifactory are correct).
 
 License
 =======
