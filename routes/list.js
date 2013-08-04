@@ -2,17 +2,23 @@ var request = require('request');
 var util = require('../lib/util');
 var config = require('../config');
 var http = require('http');
+var path = require('path');
+var url = require('url');
+var createOption = require('../lib/util').createOption;
 module.exports.meta = function(req, res){
     var artPath = util.artMetaPath(req.params.packagename);
-    request.get({uri: artPath, json: true}, function(err, metaRes, body){
-        if (metaRes.statusCode === 404){
-            //request.get({uri: config.npm.protocol + '://' + config.npm.host + '/' + req.params.packagename, json: true}, function(err, npmRes, npmBody){
-                // todo: pipe responses back to meta and the req
-                // for now, just return 404
-                res.send(404);
-            //});
+    request.head({uri: artPath, json: true}, function(err, metaRes){
+        if (err || metaRes.statusCode === 404){
+            var proxyPath = 'http://localhost:3000';
+            // rewrite references back to local repo 
+            request.get(createOption(req), function(err, npmRes, body){
+                // todo: just do the get with accepts: text/plain
+                body = JSON.parse(JSON.stringify(body).replace(new RegExp(url.format(config.npm), 'g'), proxyPath));
+                request.put({uri: artPath, json: body});
+                res.send(body);
+            });
         } else{
-            res.send(200, body);
+            request.get(artPath).pipe(res);
         }
     });
 }
@@ -22,24 +28,30 @@ module.exports.version = function(req, res){
         version: req.params.version,
         file: 'metadata.json'
     });
-    request.get({uri: versionPath, json: true}, function(err, artRes, body){
-        res.send(200, body);
+    request.head({uri: versionPath, json: true}, function(err, versionRes){
+        if (err || versionRes.statusCode === 404){
+            var npmRequest = request.get(createOption(req));
+            npmRequest.pipe(res);
+            npmRequest.pipe(request.put(versionPath));
+        } else {
+            request.get(artPath).pipe(res);
+        }
     });
 }
 module.exports.artifact = function(req, res){
     var filename = req.params.filename;
-    var version = filename.substring(filename.lastIndexOf('-') + 1).replace('.tgz','');
     var artPath = util.artifactPath({
         name: req.params.packagename,
-        version: version,
-        file: filename
+        version: filename.substring(filename.lastIndexOf('-') + 1).replace('.tgz',''),
+        file: req.params.filename 
     });
-    http.get(artPath, function(artRes){
-        artRes.on('data', function(chunk){
-            res.write(chunk);
-        })
-        artRes.on('end', function(){
-            res.end();
-        });
+    request.head({uri: artPath, json: true}, function(err, artifactRes){
+        if (err || artifactRes.statusCode === 404){
+            var npmRequest = request.get(createOption(req));
+            npmRequest.pipe(res);
+            npmRequest.pipe(request.put(artPath));
+        } else {
+            request.get(artPath).pipe(res);
+        }
     });
 }
