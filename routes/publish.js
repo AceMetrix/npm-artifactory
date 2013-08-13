@@ -9,12 +9,16 @@ module.exports.meta = function(req, res){
     request.get({uri: artMetaPath, json: true}, function(err, artRes, body){
         if (artRes.statusCode === 200){
             // check for deprecation updates
-            for (var version in body.versions){
-                if (req.body.versions[version].deprecated !== body.versions[version].deprecated){
-                    request.put({uri: artMetaPath, json: req.body}, function(){
-                        res.send(201, {ok: "updated package metadata"});
-                    });
-                    return;
+            if (Object.keys(req.body.versions).length > 0){
+                for (var version in body.versions){
+                    if (req.body.versions[version] && body.versions[version]){
+                        if (req.body.versions[version].deprecated !== body.versions[version].deprecated){
+                            request.put({uri: artMetaPath, json: req.body}, function(){
+                                res.send(201, {ok: "updated package metadata"});
+                            });
+                            return;
+                        }
+                    }
                 }
             }
 
