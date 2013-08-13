@@ -6,8 +6,18 @@ var crypto = require('crypto');
 // set the metadata file for package
 module.exports.meta = function(req, res){
     var artMetaPath = util.artMetaPath(req.params.packagename);
-    request.head({uri: artMetaPath}, function(err, artRes, headers){
+    request.get({uri: artMetaPath, json: true}, function(err, artRes, body){
         if (artRes.statusCode === 200){
+            // check for deprecation updates
+            for (var version in body.versions){
+                if (req.body.versions[version].deprecated !== body.versions[version].deprecated){
+                    request.put({uri: artMetaPath, json: req.body}, function(){
+                        res.send(201, {ok: "updated package metadata"});
+                    });
+                    return;
+                }
+            }
+
             res.send(409, {error: 'conflict', reason: 'Document update conflict'});
         } else{
             // todo: how is the revision really calculated?
