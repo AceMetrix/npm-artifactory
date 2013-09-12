@@ -36,10 +36,8 @@ module.exports.meta = function(req, res){
 }
 // actually perform the upload
 module.exports.artifact = function(req, res){
-    // infer the packagename and packageversion from the params
-    // ignore the revision?
     var filename = req.params.filename;
-    var version = filename.substring(filename.lastIndexOf('-') + 1).replace('.tgz','');
+    var version = filename.replace(req.params.packagename, '').replace('.tgz', '').substr(1); 
     request.get({uri: util.artMetaPath(req.params.packagename), json: true}, function(err, artRes, body){
         if (artRes.statusCode !== 200){
             res.send(500);
