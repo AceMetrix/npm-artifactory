@@ -25,7 +25,7 @@ Use npm as you would:
 
 Notes
 ======
-Configure `config.json` before running (make sure the credentials to Artifactory are correct).  The host and port are necessary for npm-artifactory to rewrite some urls to point to its instance instead of registry.npmjs.org.
+Configure `config.json` before running (make sure the credentials to Artifactory are correct).  The host and port are necessary for npm-artifactory to rewrite some urls to point to its instance instead of registry.npmjs.org.  Make sure this these values are externally accessible (ie, provide your ip address instead of 'localhost').
 
 You may optionally specify a proxy address in the config (ex. 'http://localhost:9999')
 
