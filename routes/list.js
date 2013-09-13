@@ -30,7 +30,7 @@ module.exports.version = function(req, res){
         if (err || versionRes.statusCode === 404){
             var npmRequest = request.get(createOption(req));
             npmRequest.pipe(res);
-            npmRequest.pipe(request.put(versionPath));
+            //npmRequest.pipe(request.put(versionPath));
         } else {
             request.get(artPath).pipe(res);
         }
@@ -40,14 +40,14 @@ module.exports.artifact = function(req, res){
     var filename = req.params.filename;
     var artPath = util.artifactPath({
         name: req.params.packagename,
-        version: filename.substring(filename.lastIndexOf('-') + 1).replace('.tgz',''),
+        version: filename.substring(filename.lastIndexOf('-') + 1).replace('.tgz',''), 
         file: req.params.filename 
     });
     request.head({uri: artPath, json: true}, function(err, artifactRes){
         if (err || artifactRes.statusCode === 404){
             var npmRequest = request.get(createOption(req));
             npmRequest.pipe(res);
-            npmRequest.pipe(request.put(artPath));
+            //npmRequest.pipe(request.put(artPath));
         } else {
             request.get(artPath).pipe(res);
         }
