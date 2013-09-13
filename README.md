@@ -27,6 +27,8 @@ Notes
 ======
 Configure `config.json` before running (make sure the credentials to Artifactory are correct).  The host and port are necessary for npm-artifactory to rewrite some urls to point to its instance instead of registry.npmjs.org.
 
+You may optionally specify a proxy address in the config (ex. 'http://localhost:9999')
+
 License
 =======
 Apache License 2.0
