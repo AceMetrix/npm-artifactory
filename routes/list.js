@@ -28,8 +28,7 @@ module.exports.version = function(req, res){
     });
     request.head({uri: versionPath, json: true}, function(err, versionRes){
         if (err || versionRes.statusCode === 404){
-            var npmRequest = request.get(createOption(req));
-            npmRequest.pipe(res);
+            request.get(createOption(req)).pipe(res);
             //npmRequest.pipe(request.put(versionPath));
         } else {
             request.get(versionPath).pipe(res);
@@ -45,8 +44,7 @@ module.exports.artifact = function(req, res){
     });
     request.head({uri: artPath, json: true}, function(err, artifactRes){
         if (err || artifactRes.statusCode === 404){
-            var npmRequest = request.get(createOption(req));
-            npmRequest.pipe(res);
+            request.get(createOption(req)).pipe(res);
             //npmRequest.pipe(request.put(artPath));
         } else {
             request.get(artPath).pipe(res);
