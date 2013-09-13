@@ -11,5 +11,6 @@
         "host": "registry.npmjs.org"
     },
     "host": "localhost",
+    "proxy": null,
     "port": 3000 
 }
