@@ -32,7 +32,7 @@ module.exports.version = function(req, res){
             npmRequest.pipe(res);
             //npmRequest.pipe(request.put(versionPath));
         } else {
-            request.get(artPath).pipe(res);
+            request.get(versionPath).pipe(res);
         }
     });
 }
