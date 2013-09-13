@@ -40,7 +40,7 @@ module.exports.artifact = function(req, res){
     var filename = req.params.filename;
     var artPath = util.artifactPath({
         name: req.params.packagename,
-        version: filename.substring(filename.lastIndexOf('-') + 1).replace('.tgz',''), 
+        version: filename.replace(req.params.packagename, '').replace('.tgz', '').substr(1), 
         file: req.params.filename 
     });
     request.head({uri: artPath, json: true}, function(err, artifactRes){
