@@ -35,9 +35,9 @@ if (cluster.isMaster){
     app.get('/:packagename/:version', routes.get.version);
     app.get('/:packagename/-/:filename', routes.get.artifact);
 
-    app.put('/:packagename', routes.publish.meta);
+    app.put('/:packagename', [express.bodyParser()], routes.publish.meta);
     app.put('/:packagename/-/:filename/-rev/:revision', routes.publish.artifact);
-    app.put('/:packagename/:version/-tag/latest', routes.publish.tag);
+    app.put('/:packagename/:version/-tag/latest', [express.bodyParser()], routes.publish.tag);
 
 
 
