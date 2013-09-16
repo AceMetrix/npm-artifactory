@@ -11,6 +11,10 @@ module.exports.meta = function(req, res){
         if (err || metaRes.statusCode === 404){
             var proxyPath = 'http://' + config.host + ':' + config.port;
             request.get(createOption(req), function(err, npmRes, body){
+                if (npmRes.statusCode == 304){
+                    res.send(npmRes.statusCode);
+                    return;
+                }
                 // todo: just do the get with accepts: text/plain
                 body = JSON.parse(JSON.stringify(body).replace(new RegExp(url.format(config.npm), 'g'), proxyPath));
                 res.send(body);

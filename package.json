@@ -1,6 +1,6 @@
 {
   "name": "npm-artifactory",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A proxy server that uses Artifactory to store npm modules for seamless integration with java/maven-based workflows",
   "keywords": [
     "npm",
