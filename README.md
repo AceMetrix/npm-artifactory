@@ -29,6 +29,8 @@ Configure `config.json` before running (make sure the credentials to Artifactory
 
 You may optionally specify a proxy address in the config (ex. 'http://localhost:9999')
 
+If you want to reset the registry back to the default, run: `npm config set registry https://registry.npmjs.org`
+
 License
 =======
 Apache License 2.0
