@@ -39,8 +39,6 @@ if (cluster.isMaster){
     app.put('/:packagename/-/:filename/-rev/:revision', routes.publish.artifact);
     app.put('/:packagename/:version/-tag/latest', [express.bodyParser()], routes.publish.tag);
 
-
-
     http.createServer(app).listen(app.get('port'), function(){
       console.log('Express server listening on port ' + app.get('port'));
     });

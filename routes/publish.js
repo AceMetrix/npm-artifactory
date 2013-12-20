@@ -24,7 +24,7 @@ module.exports.meta = function(req, res){
 
             res.send(409, {error: 'conflict', reason: 'Document update conflict'});
         } else{
-            // todo: how is the revision really calculated?
+            // todo: how is the revision really calculated and how is it used?
             req.body['_rev'] = '1-' + crypto.createHash('md5').update(JSON.stringify(req.body)).digest('hex');
             req.body.time = {};
             req.body['_attachments'] = {};
@@ -89,7 +89,7 @@ module.exports.tag = function(req, res){
             if (requests === 2) res.send(201, {ok: 'added version'});
         });
 
-        // prepare the a local metadata file
+        // prepare the a local metadata file in artifact version 
         var artifactPath = util.artifactPath({
             name: req.params.packagename,
             version: req.params.version,
