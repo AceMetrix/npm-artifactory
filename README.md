@@ -1,7 +1,7 @@
 npm-artifactory
 ===============
 
-A proxy server that uses [Artifactory](http://www.jfrog.com/home/v_artifactory_opensource_overview) as a data store for npm modules.  Useful to seamlessly integrate node into your java/maven-based workflows.
+A proxy server that uses [Artifactory](http://www.jfrog.com/home/v_artifactory_opensource_overview) as a data store for npm modules.  Useful to seamlessly integrate node into your java/maven-based workflows.  [Artifactory now supports npm modules](http://www.jfrog.com/confluence/display/RTF/Npm+Repositories).
 
 - offload network strain on npmjs.org to in-house artifactory
 - publish and consume your proprietary modules without major workarounds
