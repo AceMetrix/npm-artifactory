@@ -10,7 +10,9 @@ A proxy server that uses [Artifactory](http://www.jfrog.com/home/v_artifactory_o
 Installation
 ============
 
-    npm install npm-artifactory
+    git clone https://github.com/AceMetrix/npm-artifactory
+    cd npm-artifactory
+    npm install
 
 Usage
 ======
